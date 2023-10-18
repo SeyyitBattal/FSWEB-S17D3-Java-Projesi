@@ -1,6 +1,7 @@
 package com.workintech.zoo.controller;
 
 import com.workintech.zoo.entity.Kangaroo;
+import com.workintech.zoo.exceptions.kangrooException.KangrooValidation;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,14 @@ public class KangarooController {
 
     @GetMapping("/{id}")
     public Kangaroo find(@PathVariable int id) {
+        KangrooValidation.isIDnotValid(id);
+        KangrooValidation.isKangrooNotExist(kangaroos, id);
         return kangaroos.get(id);
     }
 
     @PostMapping("/")
     public Kangaroo save(@RequestBody Kangaroo kangaroo) {
+        KangrooValidation.isKangrooExist(kangaroos, kangaroo.getId());
         kangaroos.put(kangaroo.getId(), kangaroo);
         return kangaroos.get(kangaroo.getId());
     }

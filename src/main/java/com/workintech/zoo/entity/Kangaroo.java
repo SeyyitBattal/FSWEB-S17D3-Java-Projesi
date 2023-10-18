@@ -13,6 +13,6 @@ public class Kangaroo {
     private double height;
     private double weight;
     private double sleepHour;
-    private double gender;
+    private String gender;
     private boolean isAggressive;
 }
